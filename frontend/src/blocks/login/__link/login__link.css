@@ -1,0 +1,12 @@
+.login__link {
+    text-align: center;
+    width: 360px;
+    background-color: #FFFF;
+    border-radius: 2px;
+    border: none;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21.78px;
+}

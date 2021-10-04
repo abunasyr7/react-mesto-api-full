@@ -1,0 +1,10 @@
+.element__text {
+    margin: 0;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+/* Я не стал добавлять отступ тексту, а добавил отступ ячейке, где они лежат */

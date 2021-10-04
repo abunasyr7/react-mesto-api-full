@@ -1,0 +1,5 @@
+.popup__image {
+    display: flex;
+    margin: 60px auto 0 auto;
+    align-items: center;
+}

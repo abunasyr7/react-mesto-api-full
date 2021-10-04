@@ -1,0 +1,4 @@
+.popup-image__form {
+    display: flex;
+    flex-direction: column;
+}

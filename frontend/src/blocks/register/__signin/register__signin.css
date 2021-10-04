@@ -1,0 +1,14 @@
+.register__signin {
+    display: flex;
+    width: 360px;
+    margin: 15px auto 0 auto;
+    text-align: center;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16.94px;
+}
+
+.register__signin p {
+    margin: 0 12px 0 0;
+}

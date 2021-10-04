@@ -1,0 +1,14 @@
+.profile__info-section {
+    display: flex;
+    flex-direction: row;
+}
+
+@media screen and (max-width: 500px) {
+    .profile__info-section {
+        display: grid;
+        grid-template-columns: 95% 10%;
+        grid-template-rows: 1fr 0.5fr;
+        margin: 0 auto;
+        margin-bottom: 36px;
+    }
+}
