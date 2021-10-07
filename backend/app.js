@@ -8,10 +8,13 @@ const cardRoute = require('./routes/cards');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/not-found-error');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
+
+app.use(requestLogger);
 app.use('/', express.json());
 
 const randomString = crypto
@@ -47,6 +50,7 @@ app.use('*', (req, res, next) => {
   next(new NotFoundError('Not Found'));
 });
 
+app.use(errorLogger);
 app.use(errors());
 
 app.use((err, req, res, next) => {
@@ -61,6 +65,6 @@ app.use((err, req, res, next) => {
 
 app.use(limiter);
 
-app.listen(3000, () => {
+app.listen(8000, () => {
   console.log('Server has been started');
 });
