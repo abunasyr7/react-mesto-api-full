@@ -103,9 +103,10 @@ class Api {
 }
 
 const api = new Api({
-    url: 'https://mesto.nomoreparties.co/v1/cohort-25',
+    url: 'https://api.mesto.abunasyr7.nomoredomains.club',
     headers: {
-        authorization: '1174dadd-027e-4ffe-b733-ac48b2285022',
+        // authorization: '1174dadd-027e-4ffe-b733-ac48b2285022',
+        'Accept': 'applications/json',
         'Content-Type': 'application/json',
     }
 });
