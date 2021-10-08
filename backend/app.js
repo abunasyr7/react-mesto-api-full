@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const rateLimit = require('express-rate-limit');
 const { errors, celebrate, Joi } = require('celebrate');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const usersRoute = require('./routes/users');
 const cardRoute = require('./routes/cards');
 const { login, createUser } = require('./controllers/users');
@@ -17,6 +18,31 @@ mongoose.connect('mongodb://localhost:27017/mestodb');
 app.use(requestLogger);
 app.use('/', express.json());
 
+const allowedCors = [
+  'http://api.mesto.abunasyr7.nomoredomains.club',
+  'http://localhost:3000',
+];
+
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  const { method } = req;
+  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+  const requestHeaders = req.headers['access-control-request-headers'];
+  res.header('Access-Control-Allow-Credentials', true);
+
+  if (method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+    return res.end();
+  }
+  next();
+});
+
+app.use(cookieParser());
+
 const randomString = crypto
   .randomBytes(16)
   .toString('hex');
@@ -25,6 +51,12 @@ console.log(randomString);
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
+});
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадет');
+  }, 0);
 });
 
 app.post('/signin', celebrate({

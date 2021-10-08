@@ -1,4 +1,4 @@
-export const BASE_URL = "http://api.mesto.abunasyr7.nomoredomains.club";
+export const BASE_URL = "http://localhost:8000";
 
 const checkRes = (res) => {
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
@@ -15,14 +15,15 @@ export const register = (email, password) => {
     }).then((res) => checkRes(res))
 };
 
-export const authorization = (email, password) => {
+export const authorization = (email, password, token) => {
     return fetch(`${BASE_URL}/signin`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify({email,password})
+        body: JSON.stringify({email,password}),
+        credentials: 'include', // теперь куки посылаются вместе с запросом
     }).then((res)=> checkRes(res))
 }
 
@@ -31,8 +32,8 @@ export const checkToken = (token) => {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Contetn-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
         },
+        credentials: 'include', // теперь куки посылаются вместе с запросом
     }).then((res) => checkRes(res))
 }

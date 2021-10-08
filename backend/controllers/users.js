@@ -118,6 +118,12 @@ const login = (req, res, next) => {
         NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret',
         { expiresIn: '7d' },
       );
+      res.cookie('token', token, {
+        domain: 'localhost',
+        path: '/',
+        maxAge: 900000,
+        httpOnly: true,
+      });
       res.send({ token });
     })
     .catch((err) => {

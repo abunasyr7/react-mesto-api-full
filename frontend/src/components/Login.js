@@ -2,8 +2,8 @@ import React from "react";
 
 function Login ({onLogin}) {
 
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
+    const [email, setEmail] = React.useState('abunasyr7@yandex.kz');
+    const [password, setPassword] = React.useState('effort27');
 
     function changeEmail(e) {
         setEmail(e.target.value);

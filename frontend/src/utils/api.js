@@ -103,7 +103,7 @@ class Api {
 }
 
 const api = new Api({
-    url: 'https://api.mesto.abunasyr7.nomoredomains.club',
+    url: 'http://localhost:8000',
     headers: {
         // authorization: '1174dadd-027e-4ffe-b733-ac48b2285022',
         'Accept': 'applications/json',
