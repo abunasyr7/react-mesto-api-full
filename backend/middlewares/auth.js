@@ -11,14 +11,15 @@ module.exports = (req, res, next) => {
   // }
 
   // const token = authorization.replace('Bearer ', '');
-  const { token } = req.cookies.jwt;
-  if (token === undefined) {
+  const jwtToken = req.cookies.token;
+  console.log(jwtToken);
+  if (jwtToken === undefined) {
     return next(new UnauthorizedError('Необходима авторизация'));
   }
   let payload;
 
   try {
-    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret');
+    payload = jwt.verify(jwtToken, NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret');
   } catch {
     return next(new UnauthorizedError('Необходима авторизация'));
   }

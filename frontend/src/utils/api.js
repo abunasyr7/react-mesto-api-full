@@ -6,14 +6,16 @@ class Api {
 
     getUserInfo() {
         return fetch(`${this._url}/users/me`, {
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include', // теперь куки посылаются вместе с запросом
         })
             .then(this._check);
     }
 
     getInitialCards() {
         return fetch(`${this._url}/cards`, {
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include', // теперь куки посылаются вместе с запросом
         })
             .then(this._check);
     }
@@ -24,6 +26,7 @@ class Api {
         return fetch(`${this._url}/users/me`, {
             method: "PATCH",
             headers :this._headers,
+            credentials: 'include', // теперь куки посылаются вместе с запросом
             body: JSON.stringify({
                 name: data.name,
                 about: data.about
@@ -36,6 +39,7 @@ class Api {
         return fetch(`${this._url}/cards`, {
             method: "POST",
             headers: this._headers,
+            credentials: 'include', // теперь куки посылаются вместе с запросом
             body: JSON.stringify({
                 name: data.name,
                 link: data.link,
@@ -47,7 +51,8 @@ class Api {
     cardDelete(cardId) {
         return fetch(`${this._url}/cards/${cardId}`, {
             method: "DELETE",
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include', // теперь куки посылаются вместе с запросом
         })
             .then(this._check);
     }
@@ -55,7 +60,8 @@ class Api {
     setLike(cardId) {
         return fetch(`${this._url}/cards/likes/${cardId}`, {
             method: "PUT",
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include', // теперь куки посылаются вместе с запросом
         })
             .then((res) => {
             if (res.ok) {
@@ -69,7 +75,8 @@ class Api {
         return fetch(`${this._url}/cards/likes/${cardId}`,
             {
             method: "DELETE",
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include', // теперь куки посылаются вместе с запросом
         })
             .then(this._check);
     }
@@ -79,6 +86,7 @@ class Api {
         return fetch(`${this._url}/users/me/avatar`, {
             method: "PATCH",
             headers: this._headers,
+            credentials: 'include', // теперь куки посылаются вместе с запросом
             body: JSON.stringify({
                 avatar: data.avatar,
             })
@@ -103,7 +111,7 @@ class Api {
 }
 
 const api = new Api({
-    url: 'http://localhost:8000',
+    url: 'http://api.mesto.abunasyr7.nomoredomains.club',
     headers: {
         // authorization: '1174dadd-027e-4ffe-b733-ac48b2285022',
         'Accept': 'applications/json',
