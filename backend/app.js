@@ -1,9 +1,8 @@
 const express = require('express');
-// const crypto = require('crypto');
 const cors = require('cors');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
-// const rateLimit = require('express-rate-limit');
+const rateLimit = require('express-rate-limit');
 const { errors, celebrate, Joi } = require('celebrate');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -18,16 +17,17 @@ const app = express();
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
-// const limiter = rateLimit({
-//   windowMs: 15 * 60 * 1000,
-//   max: 100,
-// });
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+});
 
 app.use(cors({
   origin: ['http://localhost:3000'],
   credentials: true,
 }));
 app.use(helmet());
+app.use(limiter);
 app.use('/', express.json());
 
 // const allowedCors = [
@@ -61,12 +61,6 @@ app.use(bodyParser.json());
 //   .randomBytes(16)
 //   .toString('hex');
 // console.log(randomString);
-
-// app.get('/crash-test', () => {
-//   setTimeout(() => {
-//     throw new Error('Сервер сейчас упадет');
-//   }, 0);
-// });
 
 app.use(requestLogger);
 
@@ -110,7 +104,11 @@ app.use((err, req, res, next) => {
   next();
 });
 
-// app.use(limiter);
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадет');
+  }, 0);
+});
 
 app.listen(8000, () => {
   console.log('Server has been started');
