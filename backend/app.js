@@ -27,7 +27,6 @@ app.use(cors({
   credentials: true,
 }));
 app.use(helmet());
-app.use(limiter);
 app.use('/', express.json());
 
 // const allowedCors = [
@@ -63,6 +62,7 @@ app.use(bodyParser.json());
 // console.log(randomString);
 
 app.use(requestLogger);
+app.use(limiter);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
